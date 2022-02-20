@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+.FondEcran {
+    background: url("./assets/ghibli7.jpg") no-repeat center center fixed;
+    background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+  }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
