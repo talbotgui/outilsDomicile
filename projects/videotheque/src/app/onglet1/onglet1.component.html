@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 listeAlphabetique margeHaute">
+      <button *ngFor="let lettre of alphabet" (click)="filtrer(lettre)">{{ lettre }}</button>
+      <button (click)="creerFilm()">+</button>
+    </div>
+  </div>
+  <div class="row tableauFilms margeHaute">
+    <div class="col-1 lettrine">{{ lettreClique }}</div>
+    <div class="col-11 col-lg-9">
+      <ul class="list-unstyled multiplesColonnes">
+        <li *ngFor="let film of listeFilms"><app-titrefilms [filmAafficher]="film"></app-titrefilms></li>
+      </ul>
+    </div>
+    <div class="col-2 d-none d-lg-block d-xl-block">
+      <img src="./assets/Ghibli1.png" class="imageDeLaLargeurDuContenant" />
+    </div>
+  </div>
+</div>

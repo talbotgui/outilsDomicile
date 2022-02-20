@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- gauche -->
+    <div class="col-12 col-lg-5">
+      <div class="row">
+        <div class="col-12">
+          <table class="border border-primary">
+            <tr>
+              <th>Séries en cours</th>
+              <th>Saison-Episode</th>
+            </tr>
+            <tr *ngFor="let serie of listeSeriesEnCours">
+              <td><app-titreseries [serieAafficher]="serie"></app-titreseries></td>
+              <td>{{ serie.dernierEpisodeVu }}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-12">
+          <table class="border border-primary w-100">
+            <tr>
+              <th>Séries à regarder</th>
+            </tr>
+            <tr *ngFor="let serie of listeSeriesAvoir">
+              <td><app-titreseries [serieAafficher]="serie"></app-titreseries></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- centre -->
+    <div class="col-lg-2 d-none d-lg-block d-xl-block">
+      <img src="./assets/Ghibli4.png" class="imageDeLaLargeurDuContenant" />
+    </div>
+
+    <!-- droite -->
+    <div class="col-12 col-lg-5">
+      <div class="row">
+        <div class="col-12">
+          <table class="border border-primary w-100">
+            <tr>
+              <th>Films à regarder</th>
+            </tr>
+            <tr *ngFor="let film of listeFilmsAvoir">
+              <td><app-titrefilms [filmAafficher]="film"></app-titrefilms></td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-12">
+          <table class="border border-primary">
+            <tr>
+              <th>Derniers films vus</th>
+              <th>à la date du</th>
+            </tr>
+            <tr *ngFor="let film of listeDerniersFilmsVus">
+              <td><app-titrefilms [filmAafficher]="film"></app-titrefilms></td>
+              <td>{{ film.dateDernierVisionnage }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

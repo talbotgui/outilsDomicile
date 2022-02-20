@@ -1,0 +1,11 @@
+.listeAlphabetique {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.lettrine {
+  text-align: left;
+  font-size: 30px;
+  font-weight: bold;
+  padding-top: 10px;
+}

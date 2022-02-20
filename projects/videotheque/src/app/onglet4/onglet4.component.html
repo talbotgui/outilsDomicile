@@ -1,0 +1,75 @@
+<!-- <div class="col-2 d-none d-lg-block d-xl-block"> 
+  <img src="./assets/Ghibli4.png" class="imageDeLaLargeurDuContenant" />
+</div>-->
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Recherche par tags </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-5">
+          <div style="font-weight: bold;">Tags Primaires</div>
+          <ul class="list-unstyled multiplesColonnes">
+            <li *ngFor="let tag of listeTagsPrimaires">
+              <mat-checkbox (change)="modifierTagPrimaire(tag, $event.checked)">{{ tag }}</mat-checkbox>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-5">
+          <div style="font-weight: bold;">Tags Secondaires</div>
+          <ul class="list-unstyled multiplesColonnes">
+            <li *ngFor="let tag of listeTagsSecondaires">
+              <mat-checkbox (change)="modifierTagSecondaire(tag, $event.checked)">{{ tag }}</mat-checkbox>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Recherche par mot-clé </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="container-fluid">
+      <mat-form-field class="example-full-width">
+        <mat-label>Recherche</mat-label>
+        <input matInput placeholder="Ex. Belle" [(ngModel)]="champRecherche" />
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Recherche par durée </mat-panel-title>
+    </mat-expansion-panel-header>
+    en minutes... &nbsp;
+
+    <mat-form-field class="example-margin">
+      <mat-label>Durée minimum</mat-label>
+      <input matInput type="number" [(ngModel)]="dureeMin" />
+    </mat-form-field>
+    <mat-form-field class="example-margin">
+      <mat-label>Durée maximum</mat-label>
+      <input matInput type="number" [(ngModel)]="dureeMax" />
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<div class="row">
+  <div class="col-12">
+    <ul class="espaceHautTableau list-unstyled multiplesColonnes" *ngIf="listeSeries && listeSeries.length > 0">
+      <li *ngFor="let serie of listeSeries"><app-titreseries [serieAafficher]="serie"></app-titreseries></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <ul class="espaceHautTableau list-unstyled multiplesColonnes" *ngIf="listeFilms && listeFilms.length > 0">
+      <li *ngFor="let film of listeFilms"><app-titrefilms [filmAafficher]="film"></app-titrefilms></li>
+    </ul>
+  </div>
+</div>

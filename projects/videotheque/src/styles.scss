@@ -1,1 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.margeHaute {
+  margin-top: 20px;
+}
+
+/*Pour définir la largeur des colonne de manière automatique*/
+/* Small devices */
+@media (min-width: 576px) {
+  .multiplesColonnes {
+    column-count: 1;
+  }
+}
+/* Medium devices */
+@media (min-width: 768px) {
+  .multiplesColonnes {
+    column-count: 2;
+  }
+}
+/* Large devices */
+@media (min-width: 992px) {
+  .multiplesColonnes {
+    column-count: 2;
+  }
+}
+/* Extra large devices */
+@media (min-width: 1200px) {
+  .multiplesColonnes {
+    column-count: 3;
+  }
+}
+
+.imageDeLaLargeurDuContenant {
+  width: 100%;
+}
+
+.FondEcran {
+  background: url("./assets/laputa1.jpg") no-repeat center center fixed;
+  background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+}
+
+/* pour réduire l'espace entre le contenu et le bord de la fenêtre de dialogue */
+.mat-dialog-container {
+  padding: 10px !important;
+}
+
+.titreACliquer,
+mat-icon {
+  cursor: pointer;
+}
+
+/* Pour scroller dans la popup en mode petit écran */
+.cdk-overlay-pane {
+  overflow-y: auto;
+}

@@ -1,0 +1,163 @@
+<div class="container-fluid cadre">
+  <!-- titre -->
+  <div class="row">
+    <div class="col-12 titreSeries">
+      {{ serie.nom }}
+    </div>
+  </div>
+
+  <!-- infos non modifiables -->
+  <div class="row" *ngIf="affichageLecture">
+    <div class="col-12">Enregistrement : {{ serie.dateEnregistementVideotheque }}</div>
+    <div class="col-12">Emplacement : {{ serie.emplacement }}</div>
+    <div class="col-12" *ngIf="serie.duree && serie.duree.length > 0">Durée : {{ serie.duree }} minutes</div>
+    <div class="col-12">
+      <a target="blank" [href]="serie.lienInternet">Lien AlloCiné</a>
+    </div>
+  </div>
+
+  <!-- état du visionnage -->
+  <div class="row" *ngIf="affichageLecture">
+    <div class="col-12" *ngIf="indicateurSerieCommencee && serie">
+      <span>Le dernier épisode vu est la saison </span>
+      <span class="donnees">{{ serie.dernierEpisodeVu?serie.dernierEpisodeVu.split("-")[0]:'' }}</span>
+      <span>, l'épisode </span>
+      <span class="donnees">{{ serie.dernierEpisodeVu?serie.dernierEpisodeVu.split("-")[1]:'' }}</span>
+      <span> le </span>
+      <span class="donnees">{{ serie.dateDernierVisionnage }}</span>
+    </div>
+    <div class="col-12" *ngIf="!indicateurSerieCommencee && !indicateurSerieTerminee">
+      Nous n'avons pas encore regardé cette série.
+    </div>
+    <div class="col-12" *ngIf="indicateurSerieTerminee">
+      Nous avons regardé cette série intégralement.
+    </div>
+  </div>
+
+  <!--actions sur le visionnage-->
+  <div class="row" *ngIf="affichageLecture">
+    <div class="col-12" *ngIf="indicateurSerieCommencee">
+      Nous regardons le <button (click)="renseignerEpisodeSuivant()">suivant</button> aujourd'hui.
+    </div>
+    <div class="col-12" *ngIf="!indicateurSerieCommencee && !indicateurSerieTerminee">
+      Nous commençons le premier <button (click)="renseignerEpisode1()">épisode</button> aujourd'hui.
+    </div>
+    <div class="col-12" *ngIf="indicateurSerieTerminee">
+      Nous re-commençons le premier <button (click)="renseignerEpisode1()">épisode</button> aujourd'hui.
+    </div>
+  </div>
+  <!-- ******************************************************** en mode écriture ******************************-->
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Titre</mat-label>
+        <input matInput [(ngModel)]="serie.nom" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Date d'enregistrement</mat-label>
+        <input matInput [(ngModel)]="serie.dateEnregistementVideotheque" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Emplacement</mat-label>
+        <input matInput [(ngModel)]="serie.emplacement" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Nombres d'épisodes</mat-label>
+        <input matInput [(ngModel)]="stringNombreEpisodes" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Durée (en minutes)</mat-label>
+        <input matInput [(ngModel)]="serie.duree" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Date du dernier visionnage</mat-label>
+        <input matInput [(ngModel)]="serie.dateDernierVisionnage" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Lien AlloCiné</mat-label>
+        <input matInput [(ngModel)]="serie.lienInternet" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Tag primaire</mat-label>
+        <mat-select [(ngModel)]="serie.tagPrimaire">
+          <mat-option *ngFor="let tag of serviceDeSauvegarde.listeTagsPrimaires" [value]="tag">
+            {{ tag }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- Liste des tags déjà sélectionnés -->
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-chip-list #tagsSecondairesChipList>
+          <mat-chip *ngFor="let tag of serie.tagsSecondaires" (removed)="retirerUnTagSecondaire(tag)">
+            {{ tag }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Tags secondaires"
+            #tagsSecondairesInput
+            [matAutocomplete]="auto"
+            [matChipInputFor]="tagsSecondairesChipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [formControl]="tagsSecondairesCtrl"
+            (matChipInputTokenEnd)="creerUnTagSecondaire($event)"
+          />
+        </mat-chip-list>
+
+        <!-- Autocompletion pour l'input -->
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="ajouterUnTagSecondaire($event)">
+          <mat-option *ngFor="let tag of listeTagsSecondairesFiltree | async" [value]="tag">
+            {{ tag }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Boutons -->
+  <div class="row">
+    <div class="col-6">
+      <mat-slide-toggle [(ngModel)]="serie.aVoir">A voir !</mat-slide-toggle>
+    </div>
+    <div class="col-12">
+      <button (click)="annuler()" *ngIf="!affichageLecture">Retour</button>
+      &nbsp;
+      <button (click)="modifier()" *ngIf="affichageLecture">Modifier</button>
+      &nbsp;
+      <button (click)="enregistrer()">Enregistrer</button>
+      &nbsp;
+      <button (click)="supprimer()" *ngIf="!affichageLecture">Supprimer</button>
+    </div>
+  </div>
+</div>

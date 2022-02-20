@@ -1,0 +1,147 @@
+<div class="container-fluid cadre">
+  <!-- ****************************** en mode lecture *******************************-->
+  <div class="row">
+    <div class="col-12 titreFilms">{{ film.nom }}</div>
+  </div>
+  <div class="row" *ngIf="affichageLecture">
+    <div class="col-12">Enregistrement : {{ film.dateEnregistementVideotheque }}</div>
+    <div class="col-12">Emplacement : {{ film.nomFichier }}</div>
+    <div class="col-12" *ngIf="film.duree && film.duree.length > 0">Durée : {{ film.duree }} minutes</div>
+  </div>
+  <div class="row" *ngIf="affichageLecture">
+    <div class="col-12">Tag primaire : {{ film.tagPrimaire }}</div>
+  </div>
+  <div class="row" *ngIf="affichageLecture">
+    <div class="col-12">
+      <span>Tags secondaires :</span>
+      <span *ngFor="let tag of film.tagsSecondaires; let i = index">
+        <span> {{ tag }}</span>
+        <span *ngIf="i != film.tagsSecondaires.length - 1">,</span>
+      </span>
+    </div>
+  </div>
+  <div class="row" *ngIf="affichageLecture">
+    <div class="col-12"><a target="blank" [href]="film.lienInternet">Lien AlloCiné</a></div>
+  </div>
+  <div class="row" *ngIf="affichageLecture">
+    <div class="col-12" *ngIf="film.dateDernierVisionnage && film.dateDernierVisionnage.length == 10">
+      <span>Nous avons vu ce film le </span>
+      <span class="donnees">{{ film.dateDernierVisionnage }}</span>
+      <mat-icon *ngIf="film.dateDernierVisionnage === dateDuJour" (click)="film.dateDernierVisionnage = ''">cancel</mat-icon>
+    </div>
+  </div>
+  <div class="row" *ngIf="affichageLecture && film.dateDernierVisionnage !== dateDuJour">
+    <div class="col-12">
+      <span>Nous regardons ce film</span>
+      <button (click)="renseignerFilmVu()">aujourd'hui</button>
+      <span>.</span>
+    </div>
+  </div>
+
+  <!-- ******************************************************** en mode écriture ******************************-->
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Titre</mat-label>
+        <input matInput [(ngModel)]="film.nom" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Date d'enregistrement</mat-label>
+        <input matInput [(ngModel)]="film.dateEnregistementVideotheque" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Emplacement</mat-label>
+        <input matInput [(ngModel)]="film.nomFichier" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Durée (en minutes)</mat-label>
+        <input matInput [(ngModel)]="film.duree" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Date du dernier visionnage</mat-label>
+        <input matInput [(ngModel)]="film.dateDernierVisionnage" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Lien AlloCiné</mat-label>
+        <input matInput [(ngModel)]="film.lienInternet" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-label>Tag primaire</mat-label>
+        <mat-select [(ngModel)]="film.tagPrimaire">
+          <mat-option *ngFor="let tag of serviceDeSauvegarde.listeTagsPrimaires" [value]="tag">
+            {{ tag }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- Liste des tags déjà sélectionnés -->
+  <div class="row" *ngIf="!affichageLecture">
+    <div class="col-12">
+      <mat-form-field class="pleineLargeur">
+        <mat-chip-list #tagsSecondairesChipList>
+          <mat-chip *ngFor="let tag of film.tagsSecondaires" (removed)="retirerUnTagSecondaire(tag)">
+            {{ tag }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Tags secondaires"
+            #tagsSecondairesInput
+            [matAutocomplete]="auto"
+            [matChipInputFor]="tagsSecondairesChipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [formControl]="tagsSecondairesCtrl"
+            (matChipInputTokenEnd)="creerUnTagSecondaire($event)"
+          />
+        </mat-chip-list>
+
+        <!-- Autocompletion pour l'input -->
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="ajouterUnTagSecondaire($event)">
+          <mat-option *ngFor="let tag of listeTagsSecondairesFiltree | async" [value]="tag">
+            {{ tag }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Boutons -->
+  <div class="row">
+    <div class="col-6">
+      <mat-slide-toggle [(ngModel)]="film.aVoir">A voir !</mat-slide-toggle>
+    </div>
+    <div class="col-12">
+      <button (click)="annuler()" *ngIf="!affichageLecture">Retour</button>
+      &nbsp;
+      <button (click)="modifier()" *ngIf="affichageLecture">Modifier</button>
+      &nbsp;
+      <button (click)="enregistrer()">Enregistrer</button>
+      &nbsp;
+      <button (click)="supprimer()" *ngIf="!affichageLecture">Supprimer</button>
+    </div>
+  </div>
+</div>
