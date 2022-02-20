@@ -31,7 +31,9 @@
               "projects/macave/src/assets"
             ],
             "styles": [
-              "projects/macave/src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/macave/src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"              
             ],
             "scripts": []
           },
@@ -99,7 +101,9 @@
               "projects/macave/src/assets"
             ],
             "styles": [
-              "projects/macave/src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/macave/src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           }
@@ -134,7 +138,9 @@
               "projects/videotheque/src/assets"
             ],
             "styles": [
-              "projects/videotheque/src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/videotheque/src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },
@@ -202,7 +208,9 @@
               "projects/videotheque/src/assets"
             ],
             "styles": [
-              "projects/videotheque/src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/videotheque/src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           }
