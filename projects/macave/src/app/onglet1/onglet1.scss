@@ -1,0 +1,18 @@
+/* Pour la marge entre les boutons et leur taille */
+button { margin-left: 30px; width: 40px; height: 40px; font-size: 40px; }
+
+/* Pour limiter la taille d'une carte */
+.mat-card-title { margin-bottom: 0px!important; }
+.mat-card-title:not(:first-child), .mat-card-subtitle:not(:first-child) { margin-top: 0px!important; }
+.mat-card-actions, .mat-card-subtitle, .mat-card-content { margin-bottom: 0px!important; }
+.mat-card-actions { padding: 0px!important; }
+
+/* Pour mettre les actions à droite du titre */
+.actionsAlignees { float: right; margin-top: -30px; }
+
+/* POur séparer les cartes */
+.avecBordure { border-bottom: solid 1px lightgray; }
+
+/* Pour que les input soient de la même hauteur */
+.mat-form-field-infix { height: 52px!important; }
+input { height: 32px!important; }

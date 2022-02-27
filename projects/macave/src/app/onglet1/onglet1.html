@@ -1,1 +1,60 @@
-onglet1
+<div class="container-fluid">
+
+    <!-- Liste des produits -->
+    <div class="row" *ngIf="sauvegardeService.inventaire">
+        <div *ngFor="let c of sauvegardeService.inventaire.contenuCongelateur" class="col-12 avecBordure">
+            <mat-card>
+                <mat-card-title>{{c.quantite}} - {{c.nom}}</mat-card-title>
+                <mat-card-subtitle>{{c.tags}}</mat-card-subtitle>
+                <mat-card-actions class="actionsAlignees">
+                    <button mat-button (click)="modifierQuantite(c, +1)">+</button>
+                    <button mat-button (click)="modifierQuantite(c, -1)">-</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+
+    <!-- formulaire d'ajout -->
+    <div class="row">
+        <div class="col-12">
+            <mat-card>
+                <mat-card-title>Ajout d'un nouveau contenu</mat-card-title>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-6">
+                            <mat-form-field class="pleineLargeur">
+                                <mat-label>Nom</mat-label>
+                                <input matInput [(ngModel)]="nomNouveauContenu" />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-6">
+                            <mat-form-field class="pleineLargeur">
+                                <mat-chip-list #tagsChipList>
+                                    <mat-chip *ngFor="let tag of tagsNouveauContenu" (removed)="retirerUnTag(tag)">
+                                        {{ tag }}
+                                        <mat-icon matChipRemove>cancel</mat-icon>
+                                    </mat-chip>
+                                    <input placeholder="Tags" #tagsInput [matAutocomplete]="auto" [matChipInputFor]="tagsChipList"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [formControl]="tagsCtrl"
+                                        (matChipInputTokenEnd)="creerUnTag($event)" />
+                                </mat-chip-list>
+
+                                <!-- Autocompletion pour l'input -->
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="ajouterUnTag($event)">
+                                    <mat-option *ngFor="let tag of listeTagsFiltree | async" [value]="tag">
+                                        {{ tag }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-button (click)="ajouterContenu()">V</button>
+                    <button mat-button (click)="viderFormulaire()">X</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
