@@ -18,7 +18,12 @@ button { margin-left: 30px!important; width: 40px; height: 40px; font-size: 40px
 .mat-card-actions { padding: 0px!important; }
 
 /* Pour mettre les actions à droite du titre */
-.actionsAlignees { float: right; margin-top: -30px; }
+@media (min-width: 576px) {
+    .actionsAlignees { float: right; margin-top: -30px; }
+}
+@media (max-width: 576px){
+    .actionsAlignees { text-align: right; }
+}
 
 /* POur séparer les cartes */
 .avecBordure { border-bottom: solid 1px lightgray; }
