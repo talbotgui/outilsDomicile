@@ -44,7 +44,6 @@ export class Onglet1Component {
         }
       })
     );
-
   }
 
   /** Modification de la quantité du contenu */
@@ -54,7 +53,16 @@ export class Onglet1Component {
     }
   }
 
-  creerUnTag(event: MatChipInputEvent) {
+  /** Suppression d'un élément de l'inventaire */
+  public supprimer(c: ContenuCongelateur): void {
+    const index = this.sauvegardeService.inventaire?.contenuCongelateur.indexOf(c);
+    if (typeof index != "undefined" && index !== -1) {
+      this.sauvegardeService.inventaire?.contenuCongelateur.splice(index, 1);
+    }
+  }
+
+  /** Création d'un tag */
+  public creerUnTag(event: MatChipInputEvent): void {
     // ajout du tag dans les tags du contenu mais aussi dans les tags disponibles
     if ((event.value || '').trim()) {
       if (this.tagsNouveauContenu.indexOf(event.value) === -1) {
@@ -70,8 +78,9 @@ export class Onglet1Component {
     }
     this.tagsCtrl.setValue(null);
   }
-  // Ajout d'un nouveau tag
-  ajouterUnTag(event: MatAutocompleteSelectedEvent) {
+
+  /** Ajout d'un nouveau tag */
+  public ajouterUnTag(event: MatAutocompleteSelectedEvent): void {
     // Ajout du tag
     if (this.tagsNouveauContenu.indexOf(event.option.viewValue) === -1) {
       this.tagsNouveauContenu.push(event.option.viewValue);
@@ -82,8 +91,8 @@ export class Onglet1Component {
       this.tagsCtrl.setValue(null);
     }
   }
-  // Retrait d'un nouveau tag
-  retirerUnTag(tag: string) {
+  /** Retrait d'un nouveau tag */
+  public retirerUnTag(tag: string): void {
     // recherche du tag dans la liste
     const index = this.tagsNouveauContenu.indexOf(tag);
     // si le tag est dans la liste, on le supprime

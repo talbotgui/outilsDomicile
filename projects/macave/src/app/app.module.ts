@@ -20,11 +20,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { Onglet1Component } from './onglet1/onglet1';
 import { Onglet2Component } from './onglet2/onglet2';
+import { SauvegardeComponent } from './sauvegarde/sauvegarde';
 import { SauvegardeService } from './services/sauvegarde.service';
 
 @NgModule({
   declarations: [
-    AppComponent, Onglet1Component, Onglet2Component
+    AppComponent, Onglet1Component, Onglet2Component, SauvegardeComponent
   ],
   imports: [
     // Angular
