@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 import { Inventaire } from '../model/model';
 
 @Injectable()
@@ -16,11 +16,11 @@ export class SauvegardeService {
   );
 
   /** Données chargees */
-  public inventaire: Inventaire|undefined;
-  public tousLesTags:string[] = [];
+  public inventaire: Inventaire | undefined;
+  public tousLesTags: string[] = [];
 
   /** Constructeur pour obtenir les composants nécessaires */
-  constructor(private http: HttpClient, private snackBar: MatSnackBar, private datePipe: DatePipe) {}
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private datePipe: DatePipe) { }
 
   /**
    * Méthode de gestion des erreurs.
@@ -89,9 +89,9 @@ export class SauvegardeService {
       tap((inventaire) => {
 
         // Extraction de la liste des tags
-        this.tousLesTags= [];
+        this.tousLesTags = [];
         [inventaire.contenuArmoire, inventaire.contenuCongelateur, inventaire.contenuVins].forEach((liste) => {
-          liste.forEach(c=>{
+          liste.forEach(c => {
             if (c.tags) {
               this.tousLesTags.push(...c.tags.filter((t) => t && t.length > 0 && this.tousLesTags.indexOf(t) === -1));
             }
@@ -100,7 +100,7 @@ export class SauvegardeService {
 
         // calcul de la date technique pour être utilisée dans les onglets
         [inventaire.contenuArmoire, inventaire.contenuCongelateur, inventaire.contenuVins].forEach((liste) => {
-          liste.forEach((c) =>c.dateTechnique = !c.dateCreation? '': c.dateCreation.substring(6, 10) +'/'+ c.dateCreation.substring(3, 5) +'/'+ c.dateCreation.substring(0, 2));
+          liste.forEach((c) => c.dateTechnique = !c.dateCreation ? '' : c.dateCreation.substring(6, 10) + '/' + c.dateCreation.substring(3, 5) + '/' + c.dateCreation.substring(0, 2));
         });
 
         // Sauvegarde des données récupérées

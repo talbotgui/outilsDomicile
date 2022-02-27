@@ -1,16 +1,19 @@
 <div class="container-fluid transparenceFondEcran" *ngIf="afficherApplication">
-    <div class="row">
-        <div class="col-12 col-lg-6 col-xl-6 titreApplication">Notre Cave</div>
-    </div>
-  
-    <div class="row">
-      <div class="col-12">
-        <!--Documentation : https://material.angular.io/components/tabs/overview -->
-        <mat-tab-group>
-          <mat-tab label="Au frais..."><app-onglet1></app-onglet1> </mat-tab>
-          <mat-tab label="En bouteille..."><app-onglet2></app-onglet2> </mat-tab>
-        </mat-tab-group>
-      </div>
+  <div class="row">
+    <div class="col-12 col-lg-6 col-xl-6 titreApplication">Notre Cave</div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <!--Documentation : https://material.angular.io/components/tabs/overview -->
+      <mat-tab-group>
+        <mat-tab label="Au frais...">
+          <app-onglet1></app-onglet1>
+        </mat-tab>
+        <mat-tab label="En bouteille...">
+          <app-onglet2></app-onglet2>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
-  
+</div>

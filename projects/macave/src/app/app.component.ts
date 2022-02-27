@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ContenuCongelateur } from './model/model';
 import { SauvegardeService } from './services/sauvegarde.service';
 
 @Component({
@@ -11,7 +10,7 @@ export class AppComponent {
   public afficherApplication = false;
 
   /** Constructeur pour injecter des composants dans mon composant */
-  constructor(private sauvegardeService: SauvegardeService) {}
+  constructor(private sauvegardeService: SauvegardeService) { }
 
   // Au chargement de l'application
   ngOnInit(): void {
