@@ -4,8 +4,8 @@
   "scripts": {
     "macave-start": "ng serve --project=macave --hmr=true --port=4200",
     "videotheque-start": "ng serve --project=videotheque --hmr=true --port=4200",
-    "macave-build": "ng build --project=macave --configuration production --aot --buildOptimizer=true --base-href=/outilsDomicile/macave/",
-    "videotheque-build": "ng build --project=videotheque --configuration production --aot --buildOptimizer=true --base-href=/outilsDomicile/videotheque/"
+    "macave-build": "ng build --project=macave --configuration production --aot --buildOptimizer=true --base-href=/outilsDomicile/macave/ --output-path=docs/outilsDomicile/macave/",
+    "videotheque-build": "ng build --project=videotheque --configuration production --aot --buildOptimizer=true --base-href=/outilsDomicile/videotheque/ --output-path=docs/outilsDomicile/videotheque/"
   },
   "private": true,
   "dependencies": {
