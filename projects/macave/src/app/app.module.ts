@@ -20,14 +20,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AjouterComponent } from './ajouter/ajouter';
 import { AppComponent } from './app.component';
 import { ListerComponent } from './lister/lister';
-import { Onglet1Component } from './onglet1/onglet1';
-import { Onglet2Component } from './onglet2/onglet2';
+import { OngletComponent } from './onglet/onglet';
 import { SauvegardeComponent } from './sauvegarde/sauvegarde';
 import { SauvegardeService } from './services/sauvegarde.service';
 
 @NgModule({
   declarations: [
-    AppComponent, Onglet1Component, Onglet2Component, SauvegardeComponent, AjouterComponent, ListerComponent
+    AppComponent, OngletComponent, SauvegardeComponent, AjouterComponent, ListerComponent
   ],
   imports: [
     // Angular
