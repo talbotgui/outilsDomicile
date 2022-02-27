@@ -1,0 +1,13 @@
+<div class="row" *ngIf="listeAafficher">
+    <div *ngFor="let c of listeAafficher" class="col-12 avecBordure">
+        <mat-card>
+            <mat-card-title>{{c.quantite}} - {{c.nom}}</mat-card-title>
+            <mat-card-subtitle>{{c.tags}}&nbsp;</mat-card-subtitle>
+            <mat-card-actions class="actionsAlignees">
+                <button mat-button (click)="supprimer(c)" *ngIf="c.quantite==0">x</button>
+                <button mat-button (click)="modifierQuantite(c, +1)">+</button>
+                <button mat-button (click)="modifierQuantite(c, -1)" [disabled]="c.quantite==0">-</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

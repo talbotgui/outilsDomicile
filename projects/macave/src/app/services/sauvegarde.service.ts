@@ -90,18 +90,15 @@ export class SauvegardeService {
 
         // Extraction de la liste des tags
         this.tousLesTags = [];
-        [inventaire.contenuArmoire, inventaire.contenuCongelateur, inventaire.contenuVins].forEach((liste) => {
-          liste.forEach(c => {
-            if (c.tags) {
-              this.tousLesTags.push(...c.tags.filter((t) => t && t.length > 0 && this.tousLesTags.indexOf(t) === -1));
-            }
-          });
+        inventaire.contenu.forEach(c => {
+          if (c.tags) {
+            this.tousLesTags.push(...c.tags.filter((t) => t && t.length > 0 && this.tousLesTags.indexOf(t) === -1));
+          }
         });
 
+
         // calcul de la date technique pour être utilisée dans les onglets
-        [inventaire.contenuArmoire, inventaire.contenuCongelateur, inventaire.contenuVins].forEach((liste) => {
-          liste.forEach((c) => c.dateTechnique = !c.dateCreation ? '' : c.dateCreation.substring(6, 10) + '/' + c.dateCreation.substring(3, 5) + '/' + c.dateCreation.substring(0, 2));
-        });
+        inventaire.contenu.forEach((c) => c.dateTechnique = !c.dateCreation ? '' : c.dateCreation.substring(6, 10) + '/' + c.dateCreation.substring(3, 5) + '/' + c.dateCreation.substring(0, 2));
 
         // Sauvegarde des données récupérées
         this.inventaire = inventaire;
