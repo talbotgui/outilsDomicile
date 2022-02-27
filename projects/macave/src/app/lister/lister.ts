@@ -1,16 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Contenu } from '../model/model';
 import { SauvegardeService } from '../services/sauvegarde.service';
 
 @Component({ selector: 'app-lister', templateUrl: './lister.html', styleUrls: [] })
 export class ListerComponent {
 
+  /** Tags de filtrage */
+  @Input()
+  public tag: string = '';
+
   /** Constructeur pour injecter des composants dans mon composant */
   constructor(private sauvegardeService: SauvegardeService) { }
 
   /** Accès à la liste  */
   get listeAafficher(): Contenu[] | undefined {
-    return this.sauvegardeService.inventaire?.contenu;
+    return this.sauvegardeService.inventaire?.contenu.filter(c => !c.tags || c.tags.indexOf(this.tag) !== -1);
   }
 
   /** Modification de la quantité du contenu */

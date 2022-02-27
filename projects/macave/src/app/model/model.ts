@@ -1,5 +1,5 @@
 export class Inventaire {
-  public dateMiseAjour: string | undefined;
+  public dateMiseAjour: string | undefined | null;
   public contenu: Contenu[] = [];
 }
 

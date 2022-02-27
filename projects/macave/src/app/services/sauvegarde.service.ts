@@ -20,7 +20,7 @@ export class SauvegardeService {
   public tousLesTags: string[] = [];
 
   /** Constructeur pour obtenir les composants nécessaires */
-  constructor(private http: HttpClient, private snackBar: MatSnackBar, private datePipe: DatePipe) { }
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private formateurDeDate: DatePipe) { }
 
   /**
    * Méthode de gestion des erreurs.
@@ -54,6 +54,9 @@ export class SauvegardeService {
 
   /** Méthode sauvegardant la inventaire */
   public sauvegarderDonnees(): Observable<string> {
+    if (this.inventaire) {
+      this.inventaire.dateMiseAjour = this.formateurDeDate.transform(new Date(), 'dd/MM/yyyy');
+    }
 
     // Donnees à envoyer
     const params = new HttpParams()

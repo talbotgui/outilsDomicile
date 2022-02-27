@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -10,6 +10,10 @@ import { SauvegardeService } from '../services/sauvegarde.service';
 
 @Component({ selector: 'app-ajouter', templateUrl: './ajouter.html', styleUrls: [] })
 export class AjouterComponent {
+
+  /** Tag systématique */
+  @Input()
+  public tag: string = '';
 
   /** Attribut du contenu à créer */
   public nomNouveauContenu = '';
@@ -88,7 +92,8 @@ export class AjouterComponent {
     const c = new Contenu();
     c.quantite = 0;
     c.nom = this.nomNouveauContenu;
-    c.tags = this.tagsNouveauContenu;
+    c.tags = this.tagsNouveauContenu || [];
+    c.tags.push(this.tag);
     c.dateCreation = this.calculerDateDuJour();
 
     // Ajout du nouveau objet
